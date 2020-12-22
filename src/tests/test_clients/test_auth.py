@@ -29,9 +29,8 @@ def mocked_request(mocker, auth_client):
 
 
 def test_bearer_token_auth_header_correctly_formed(auth_client, mocked_request):
-    token = "test_token"
     client = auth_client(base_url="http://hostname/")
-    client.set_auth_header(token)
+    client.set_auth_header("test_token")
 
     client.get("v1/test-endpoint")
 
