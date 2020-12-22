@@ -1,0 +1,58 @@
+[build-system]
+requires = ["poetry>=1.0.0"]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry]
+# Description
+name = "noos-pyk"
+version = "0.0.1"
+description = "A simple, yet useful Python toolkit"
+# Credentials
+license = "MIT"
+authors = ["Noos Energy <contact@noos.energy>"]
+homepage = "https://github.com/noosenergy/noos-python-kit"
+# Package data
+readme = "README.md"
+packages = [
+    { include = "noos_pyk", from = "src" },
+]
+# Distribution
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+requests = "*"
+
+[tool.poetry.dev-dependencies]
+# Format
+isort = "*"
+black = {version = "*", allow-prereleases = true}
+# Linter
+pydocstyle = "*"
+flake8 = "*"
+mypy = "*"
+# Testing
+pytest = "*"
+pytest-mock = "*"
+# Debugging
+ipdb = "*"
+ipython = "*"
+
+[tool.isort]
+line_length = 99
+multi_line_output = 3
+lines_after_imports = 2
+default_section = "THIRDPARTY"
+known_first_party = "noos_pyk"
+sections = "STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+
+[tool.black]
+line-length = 99
+target_version = ['py37']
