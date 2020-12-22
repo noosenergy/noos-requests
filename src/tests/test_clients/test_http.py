@@ -36,7 +36,7 @@ def error_status_code():
 
 
 class TestHTTPClient:
-    def test_not_implemented_deserialize_raises_error(self, bad_client):
+    def test_not_implemented_deserialize_method_raises_error(self, bad_client):
         with pytest.raises(TypeError):
             bad_client()
 
