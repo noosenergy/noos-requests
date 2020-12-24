@@ -31,7 +31,7 @@ class HTTPClient(base.BaseClient[T]):
             self._conn.headers.update(self._headers)
         return self._conn
 
-    # Private methods:
+    # Blocking client implementation:
 
     def _request(
         self,
@@ -42,15 +42,17 @@ class HTTPClient(base.BaseClient[T]):
         statuses: tuple = (),
     ) -> T:
         url = parse.urljoin(self._url, path)
-
         response = self._send(method, url, params=params, data=data)
 
         self._check(response, statuses=statuses)
         return self._deserialize(response)
 
+    # Helpers:
+
     def _send(
         self, method: str, url: str, params: Optional[dict] = None, data: Optional[dict] = None
     ) -> requests.Response:
+        """Fetch request response."""
         return self.conn.request(
             method,
             url,
@@ -63,17 +65,19 @@ class HTTPClient(base.BaseClient[T]):
 
     @staticmethod
     def _check(response: requests.Response, statuses: tuple = ()) -> None:
-        return _check_response(response, statuses=statuses)
+        """Check response status."""
+        _check_response_status(response, statuses=statuses)
 
     @abc.abstractmethod
     def _deserialize(self, response: requests.Response) -> T:
+        """Deserialize response content."""
         ...
 
 
 # Helpers:
 
 
-def _check_response(response: requests.Response, statuses: tuple = ()) -> None:
+def _check_response_status(response: requests.Response, statuses: tuple = ()) -> None:
     try:
         response.raise_for_status()
     except requests.exceptions.HTTPError:
