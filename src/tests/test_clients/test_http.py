@@ -77,11 +77,11 @@ class TestCheckResponse:
         mocker.patch.object(response, "status_code", error_status_code)
 
         with pytest.raises(http.HTTPError):
-            http._check_response(response)
+            http._check_response_status(response)
 
     def test_mismatched_response_status_code_raises_error(self, mocker):
         response = requests.Response()
         mocker.patch.object(response, "status_code", 201)
 
         with pytest.raises(http.HTTPError):
-            http._check_response(response, statuses=(200,))
+            http._check_response_status(response, statuses=(200,))

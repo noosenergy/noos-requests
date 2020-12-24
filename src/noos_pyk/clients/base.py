@@ -6,6 +6,8 @@ T = TypeVar("T")
 
 Header = Dict[str, str]
 
+DEFAULT_TIMEOUT = 10.0
+
 
 class ClientError(Exception):
     """Basic exception raised by an HTTP client."""
@@ -24,7 +26,7 @@ class BaseClient(abc.ABC, Generic[T]):
     default_base_url: str = ""
 
     # Default connection timeout
-    default_timeout: float = 10.0
+    default_timeout: float = DEFAULT_TIMEOUT
 
     # Default request media type
     default_content_type: str = ""
@@ -39,7 +41,7 @@ class BaseClient(abc.ABC, Generic[T]):
         self._timeout = default_timeout or self.default_timeout
         self._headers = default_headers or {"Accept": self.default_content_type}
 
-    # Public HTTP methods:
+    # Default HTTP methods:
 
     def post(self, path: str, data: Optional[dict] = None, statuses: tuple = ()) -> T:
         return self._request(method="POST", path=path, data=data, statuses=statuses)
@@ -56,7 +58,7 @@ class BaseClient(abc.ABC, Generic[T]):
     def delete(self, path: str, params: Optional[dict] = None, statuses: tuple = ()) -> T:
         return self._request(method="DELETE", path=path, params=params, statuses=statuses)
 
-    # Private methods:
+    # Bespoke client implementation:
 
     @abc.abstractmethod
     def _request(
