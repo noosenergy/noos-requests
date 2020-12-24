@@ -1,15 +1,19 @@
 from typing import Optional, Type
 
-from requests import auth
+from requests import PreparedRequest, auth
 from typing_extensions import Protocol
+
+
+DEFAULT_TOKEN_HEADER = "X-TokenAuth"
+DEFAULT_TOKEN_VALUE = "Token"
 
 
 class HTTPTokenAuth(auth.AuthBase):
     """Attaches a bearer token authentication header."""
 
     # Default token header and value
-    default_header = "X-TokenAuth"
-    default_value = "Token"
+    default_header = DEFAULT_TOKEN_HEADER
+    default_value = DEFAULT_TOKEN_VALUE
 
     def __init__(
         self, token: str, header: Optional[str] = None, value: Optional[str] = None
@@ -18,9 +22,9 @@ class HTTPTokenAuth(auth.AuthBase):
         self._header = header or self.default_header
         self._value = value or self.default_value
 
-    def __call__(self, r):
-        r.headers[self._header] = f"{self._value} {self._token}"
-        return r
+    def __call__(self, request: PreparedRequest) -> PreparedRequest:
+        request.headers[self._header] = f"{self._value} {self._token}"
+        return request
 
 
 class AuthClient(Protocol):
