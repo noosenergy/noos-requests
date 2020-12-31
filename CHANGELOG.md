@@ -12,3 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.2] - 2020-12-24
 ### Changed
  - Improve overall project documentation.
+
+## [0.0.3] - 2020-12-31
+### Changed
+ - Align project boilerplate with Noos conventions.
