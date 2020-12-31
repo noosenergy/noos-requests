@@ -47,8 +47,10 @@ This project is shipped with a Makefile, which is ready to do basic common tasks
 $ make
 
 help                           Display this auto-generated help message
+update                         Lock and install build dependencies
 clean                          Clean project from temp files / dirs
 format                         Run auto-formatting linters
+install                        Install build dependencies from lock file
 lint                           Run python linters
 test                           Run pytest with all tests
 package                        Build project wheel distribution
