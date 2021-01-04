@@ -16,3 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.3] - 2020-12-31
 ### Changed
  - Align project boilerplate with Noos conventions.
+
+## [0.0.4] - 2021-01-04
+### Changed
+ - Add `typing-extensions` Python dependency.
