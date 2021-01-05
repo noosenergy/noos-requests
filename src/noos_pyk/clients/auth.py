@@ -1,7 +1,6 @@
-from typing import Optional, Type
+from typing import Optional, Protocol, Type
 
 from requests import PreparedRequest, auth
-from typing_extensions import Protocol
 
 
 DEFAULT_TOKEN_HEADER = "X-TokenAuth"
