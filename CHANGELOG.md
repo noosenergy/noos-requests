@@ -20,3 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.4] - 2021-01-04
 ### Changed
  - Add `typing-extensions` Python dependency.
+
+## [0.0.5] - 2021-01-05
+### Changed
+ - Bump Python version to v3.8.6.
