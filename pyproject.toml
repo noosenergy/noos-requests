@@ -29,6 +29,10 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.8"
 requests = "*"
+websocket-client = { version = "*", optional = true }
+
+[tool.poetry.extras]
+websocket = ["websocket-client"]
 
 [tool.poetry.dev-dependencies]
 # Format

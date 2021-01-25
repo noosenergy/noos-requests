@@ -30,7 +30,7 @@ format:  ## Run auto-formatting linters
 .PHONY: install lint test package release
 
 install:  ## Install build dependencies from lock file
-	poetry install
+	poetry install -E websocket
 
 lint:  ## Run python linters
 	poetry run black --check src
