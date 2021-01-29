@@ -42,22 +42,19 @@ class WebSocketClient(base.BaseWebSocketClient[T]):
 
     def receive(self, path: str, params: Optional[dict] = None, opcode: int = 0) -> T:
         url = self._prepare(path, params=params)
-
-        response = self._recv(url, opcode=opcode)
-        return response[1]
+        return self._recv(url, opcode=opcode)
 
     def send(self, path: str, data: Optional[dict] = None, opcode: int = 0) -> None:
         url = self._prepare(path)
-
         self._send(url, data=data, opcode=opcode)
 
     # Helpers:
 
-    def _recv(self, url: str, opcode: int = 0) -> Tuple[int, T]:
+    def _recv(self, url: str, opcode: int = 0) -> T:
         with self.conn.connect(url):
-            response = self.conn.recv_data()
+            response: Tuple[int, T] = self.conn.recv_data()
             _check_response_code(response[0], opcode=opcode)
-        return response
+        return response[1]
 
     def _send(self, url: str, data: Optional[dict] = None, opcode: int = 0) -> None:
         with self.conn.connect(url):
