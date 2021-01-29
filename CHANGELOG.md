@@ -28,3 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.6] - 2021-01-25
 ### Added
  - Add basic Python wrapper for TCP clients.
+
+## [0.0.7] - 2021-01-29
+### Changed
+ - Align HTTP and WebSocket base clients.
