@@ -4,13 +4,26 @@ from noos_pyk.clients import base
 
 
 @pytest.fixture
-def bad_client():
-    class BadClient(base.BaseClient[str]):
+def bad_http_client():
+    class BadHTTPClient(base.BaseHTTPClient[str]):
         pass
 
-    return BadClient
+    return BadHTTPClient
 
 
-def test_not_implemented_request_method_raises_error(bad_client):
-    with pytest.raises(TypeError):
-        bad_client()
+@pytest.fixture
+def bad_ws_client():
+    class BadWebSocketClient(base.BaseWebSocketClient[bytes]):
+        pass
+
+    return BadWebSocketClient
+
+
+class TestNotImplementedClientMethod:
+    def test_http_client_raises_error(self, bad_http_client):
+        with pytest.raises(TypeError):
+            bad_http_client()
+
+    def test_ws_client_raises_error(self, bad_ws_client):
+        with pytest.raises(TypeError):
+            bad_ws_client()
