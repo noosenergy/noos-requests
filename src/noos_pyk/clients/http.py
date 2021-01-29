@@ -17,7 +17,7 @@ class HTTPError(base.ClientError):
     pass
 
 
-class HTTPClient(base.BaseClient[T]):
+class HTTPClient(base.BaseHTTPClient[T]):
     """Base class for blocking HTTP clients."""
 
     _auth: Optional[auth.AuthBase] = None

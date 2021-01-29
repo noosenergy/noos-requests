@@ -10,12 +10,12 @@ DEFAULT_TIMEOUT = 10.0
 
 
 class ClientError(Exception):
-    """Basic exception raised by an HTTP client."""
+    """Basic exception raised by a client."""
 
     pass
 
 
-class BaseClient(abc.ABC, Generic[T]):
+class BaseHTTPClient(abc.ABC, Generic[T]):
     """Interface class for HTTP clients."""
 
     _url: str
@@ -69,4 +69,38 @@ class BaseClient(abc.ABC, Generic[T]):
         data: Optional[dict] = None,
         statuses: tuple = (),
     ) -> T:
+        ...
+
+
+class BaseWebSocketClient(abc.ABC, Generic[T]):
+    """Interface class for web-socket clients."""
+
+    _url: str
+    _timeout: float
+    _headers: Header
+
+    # Default base URL
+    default_base_url: str = ""
+
+    # Default socket timeout
+    default_timeout: float = DEFAULT_TIMEOUT
+
+    def __init__(
+        self,
+        base_url: Optional[str] = None,
+        default_headers: Optional[Header] = None,
+        default_timeout: Optional[float] = None,
+    ) -> None:
+        self._url = base_url or self.default_base_url
+        self._timeout = default_timeout or self.default_timeout
+        self._headers = default_headers or {}
+
+    # Default WebSocket methods:
+
+    @abc.abstractmethod
+    def send(self, path: str, data: Optional[dict] = None, opcode: int = 0) -> None:
+        ...
+
+    @abc.abstractmethod
+    def receive(self, path: str, params: Optional[dict] = None, opcode: int = 0) -> T:
         ...
