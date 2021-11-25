@@ -1,18 +1,20 @@
-[![CircleCI](https://circleci.com/gh/noosenergy/noos-python-kit.svg?style=svg&circle-token=5c5370df196704b1e8a8dd7c6f2ec0731c154beb)](https://circleci.com/gh/noosenergy/noos-python-kit)
+[![CircleCI](https://circleci.com/gh/noosenergy/noos-requests.svg?style=svg&circle-token=5c5370df196704b1e8a8dd7c6f2ec0731c154beb)](https://circleci.com/gh/noosenergy/noos-requests)
 
-# Noos Energy Python Toolkit
+# Noos Energy Request Toolkit
 
-This is a simple, yet useful toolkit that supports you in writing microservices-style Python apps.
+This is a simple, yet useful toolkit that supports you in writing Python clients to microservices-style apps.
 
 ## Installation
 
 Package available from the [PyPi repository](https://pypi.org/project/noos-pyk/):
 
-    $ pip install noos-pyk
+```sh
+pip install noos-pyk
+```
 
 ## Usage as a library
 
-The project currently houses a boilerplate to build Python clients for REST services.
+The project currently houses a boilerplate to build Python HTTP and WebSocket clients to web services.
 
 As an example, to implement a Python client wrapping up HashiCorp's Terraform Cloud API,
 
@@ -39,13 +41,14 @@ class TerraformClient(json.JSONClient, auth.AuthClient):
 
 On Mac OSX, make sure [poetry](https://python-poetry.org/) has been installed and pre-configured,
 
-    $ brew install poetry
+```sh
+brew install poetry
+```
 
 This project is shipped with a Makefile, which is ready to do basic common tasks.
 
-```
-$ make
-
+```shell
+~$ make
 help                           Display this auto-generated help message
 update                         Lock and install build dependencies
 clean                          Clean project from temp files / dirs
