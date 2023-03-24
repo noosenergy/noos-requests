@@ -1,5 +1,5 @@
 import abc
-from typing import Dict, Generic, Optional, TypeVar
+from typing import Any, Dict, Generic, Optional, TypeVar
 
 
 T = TypeVar("T")
@@ -43,20 +43,58 @@ class BaseHTTPClient(abc.ABC, Generic[T]):
 
     # Default HTTP methods:
 
-    def post(self, path: str, data: Optional[dict] = None, statuses: tuple = ()) -> T:
-        return self._request(method="POST", path=path, data=data, statuses=statuses)
-
-    def put(self, path: str, data: Optional[dict] = None, statuses: tuple = ()) -> T:
-        return self._request(method="PUT", path=path, data=data, statuses=statuses)
-
-    def patch(self, path: str, data: Optional[dict] = None, statuses: tuple = ()) -> T:
-        return self._request(method="PATCH", path=path, data=data, statuses=statuses)
-
     def get(self, path: str, params: Optional[dict] = None, statuses: tuple = ()) -> T:
         return self._request(method="GET", path=path, params=params, statuses=statuses)
 
     def delete(self, path: str, params: Optional[dict] = None, statuses: tuple = ()) -> T:
         return self._request(method="DELETE", path=path, params=params, statuses=statuses)
+
+    def post(
+        self,
+        path: str,
+        params: Optional[dict] = None,
+        data: Optional[dict] = None,
+        form_data: Optional[Any] = None,
+        statuses: tuple = (),
+    ) -> T:
+        return self._request(
+            method="POST",
+            path=path,
+            params=params,
+            data=data,
+            form_data=form_data,
+            statuses=statuses,
+        )
+
+    def put(
+        self,
+        path: str,
+        data: Optional[dict] = None,
+        form_data: Optional[Any] = None,
+        statuses: tuple = (),
+    ) -> T:
+        return self._request(
+            method="PUT",
+            path=path,
+            data=data,
+            form_data=form_data,
+            statuses=statuses,
+        )
+
+    def patch(
+        self,
+        path: str,
+        data: Optional[dict] = None,
+        form_data: Optional[Any] = None,
+        statuses: tuple = (),
+    ) -> T:
+        return self._request(
+            method="PATCH",
+            path=path,
+            data=data,
+            form_data=form_data,
+            statuses=statuses,
+        )
 
     # Bespoke client implementation:
 
@@ -67,6 +105,7 @@ class BaseHTTPClient(abc.ABC, Generic[T]):
         path: str,
         params: Optional[dict] = None,
         data: Optional[dict] = None,
+        form_data: Optional[Any] = None,
         statuses: tuple = (),
     ) -> T:
         ...
