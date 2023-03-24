@@ -1,5 +1,5 @@
 import abc
-from typing import Optional, TypeVar
+from typing import Any, Optional, TypeVar
 from urllib import parse
 
 import requests
@@ -39,10 +39,11 @@ class HTTPClient(base.BaseHTTPClient[T]):
         path: str,
         params: Optional[dict] = None,
         data: Optional[dict] = None,
+        form_data: Optional[Any] = None,
         statuses: tuple = (),
     ) -> T:
         url = parse.urljoin(self._url, path)
-        response = self._send(method, url, params=params, data=data)
+        response = self._send(method, url, params=params, data=data, form_data=form_data)
 
         self._check(response, statuses=statuses)
         return self._deserialize(response)
@@ -50,7 +51,12 @@ class HTTPClient(base.BaseHTTPClient[T]):
     # Helpers:
 
     def _send(
-        self, method: str, url: str, params: Optional[dict] = None, data: Optional[dict] = None
+        self,
+        method: str,
+        url: str,
+        params: Optional[dict] = None,
+        data: Optional[dict] = None,
+        form_data: Optional[Any] = None,
     ) -> requests.Response:
         """Fetch request response."""
         return self.conn.request(
@@ -58,6 +64,7 @@ class HTTPClient(base.BaseHTTPClient[T]):
             url,
             params=params,
             json=data,
+            data=form_data,
             headers=self._headers,
             timeout=self._timeout,
             auth=self._auth,
