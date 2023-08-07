@@ -34,3 +34,12 @@ class TestDeserializeResponse:
         json._deserialize_json_response(mocked_response, valid_content_type=content_type)
 
         mocked_response.json.assert_called_once()
+
+    def test_response_with_json_content_and_charset(self, content_type, mocker):
+        mocked_response = mocker.Mock()
+        mocked_response.headers = {"content-type": content_type + "; charset=utf-8"}
+        mocked_response.status_code = 200
+
+        json._deserialize_json_response(mocked_response, valid_content_type=content_type)
+
+        mocked_response.json.assert_called_once()

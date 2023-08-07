@@ -1,4 +1,3 @@
-import cgi
 from http import client as http_client
 from typing import Any, Dict
 
@@ -34,8 +33,7 @@ class JSONClient(http.HTTPClient[Json]):
 def _deserialize_json_response(
     response: requests.Response, valid_content_type: str = DEFAULT_JSON_CONTENT_TYPE
 ) -> Json:
-    content_type, _ = cgi.parse_header(response.headers.get("content-type", ""))
-
+    content_type = response.headers.get("content-type", "").split(";")[0]
     if content_type == valid_content_type:
         return response.json()
 
