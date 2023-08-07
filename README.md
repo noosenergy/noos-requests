@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/noosenergy/noos-requests.svg?style=svg&circle-token=5c5370df196704b1e8a8dd7c6f2ec0731c154beb)](https://circleci.com/gh/noosenergy/noos-requests)
+[![CircleCI](https://circleci.com/gh/noosenergy/noos-requests.svg?style=svg&circle-token=c08ede3341e1b8a80f87df87959f849fe40d148f)](https://circleci.com/gh/noosenergy/noos-requests)
 
 # Noos Energy Request Toolkit
 
