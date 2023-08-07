@@ -36,3 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.8] - 2023-03-24
 ### Changed
  - Allow non-Json body in POST/PUT/PATCH HTTP requests.
+
+## [0.0.9] - 2023-08-04
+### Changed
+ - Upgrade python version to 3.11.4.
+ - Remove deprecated library: cgi.

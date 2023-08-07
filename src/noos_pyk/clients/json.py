@@ -33,8 +33,7 @@ class JSONClient(http.HTTPClient[Json]):
 def _deserialize_json_response(
     response: requests.Response, valid_content_type: str = DEFAULT_JSON_CONTENT_TYPE
 ) -> Json:
-    content_type = response.headers.get("content-type", "")
-
+    content_type = response.headers.get("content-type", "").split(";")[0]
     if content_type == valid_content_type:
         return response.json()
 
