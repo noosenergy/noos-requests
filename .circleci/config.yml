@@ -63,7 +63,7 @@ jobs:
           name: Run Python tests
           command: make test
       - store_test_results:
-          path: "."
+          path: ".pytest_results"
 
   build_wheel:
     executor: standard
