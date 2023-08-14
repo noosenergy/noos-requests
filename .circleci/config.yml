@@ -1,12 +1,18 @@
-# https://circleci.com/docs/2.1/language-python/
+---
 version: 2.1
+
+filters: &filter_tags_only
+  filters:
+    tags:
+      only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
+    branches:
+      ignore: /.*/
 
 # ------------------
 # Reusable executors
 # ------------------
 
 executors:
-
   standard:
     docker:
       - image: cimg/python:3.11.4
@@ -14,14 +20,12 @@ executors:
           POETRY_VIRTUALENVS_IN_PROJECT: true
     working_directory: "~/lib"
 
-
 # -----------------
 # Reusable commands
 # -----------------
 
 commands:
-
-  install-venv:
+  install_venv:
     steps:
       - restore_cache:
           keys:
@@ -36,38 +40,36 @@ commands:
           paths:
             - "./.venv"
 
-
 # --------------
 # Pipeline tasks
 # --------------
 
 jobs:
-
-  lint-package:
+  lint_package:
     executor: standard
     steps:
       - checkout
-      - install-venv
+      - install_venv
       - run:
           name: Run Python linter
           command: make lint
 
-  test-package:
+  test_package:
     executor: standard
     steps:
       - checkout
-      - install-venv
+      - install_venv
       - run:
           name: Run Python tests
           command: make test
       - store_test_results:
-          path: "."
+          path: ".pytest_results"
 
-  build-wheel:
+  build_wheel:
     executor: standard
     steps:
       - checkout
-      - install-venv
+      - install_venv
       - run:
           name: Build wheel
           command: make package
@@ -75,49 +77,38 @@ jobs:
           path: dist
           destination: wheel
 
-  publish-wheel:
+  publish_wheel:
     executor: standard
     steps:
       - checkout
-      - install-venv
+      - install_venv
       - run:
           name: Publish wheel
           command: make release
-
 
 # -----------------
 # Pipeline workflow
 # -----------------
 
 workflows:
-
   version: 2
 
-  lint-test-build:
+  lint_test_build:
     jobs:
-      - lint-package
-      - test-package
-      - build-wheel:
+      - lint_package
+      - test_package
+      - build_wheel:
           requires:
-            - lint-package
-            - test-package
+            - lint_package
+            - test_package
 
   publish:
     jobs:
-      - approve-for-publishing:
+      - approve_for_publishing:
           type: approval
-          filters:
-            tags:
-              # ONLY git tag compliant format: e.g. `0.0.1-alpha.01`
-              only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
-            branches:
-              ignore: /.*/
-      - publish-wheel:
+          <<: *filter_tags_only
+      - publish_wheel:
           context: PYPI_SHARED
           requires:
-            - approve-for-publishing
-          filters:
-            tags:
-              only: /[0-9]+(\.[0-9]+)*(-alpha\.[0-9]+)?/
-            branches:
-              ignore: /.*/
+            - approve_for_publishing
+          <<: *filter_tags_only

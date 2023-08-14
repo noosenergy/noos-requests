@@ -79,4 +79,4 @@ python_functions = "test_*"
 filterwarnings = "error::RuntimeWarning"
 pythonpath = ["src"]
 junit_family = "xunit2"
-addopts = "--junitxml=pytest.xml"
+addopts = "--junitxml=.pytest_results/junit.xml"
