@@ -41,3 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
  - Upgrade python version to 3.11.4.
  - Remove deprecated library: cgi.
+
+## [0.0.10] - 2023-09-18
+### Changed
+ - Bump poetry to v1.5.1.
