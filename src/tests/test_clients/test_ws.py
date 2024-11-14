@@ -53,6 +53,25 @@ class TestWebSocketClient:
         assert args[0] == "ws://hostname:8000/v1/ws?filter=test_value"
         assert kwargs["opcode"] == 1
 
+    def test_sent_message_successfully(self, text_client, mocker):
+        mocked_send = mocker.patch.object(text_client, "_send")
+        client = text_client(base_url="ws://hostname:8000/")
+
+        client.send(
+            "/v1/ws",
+            data="test_data",
+            params={"filter": "test_value"},
+            opcode=websocket.ABNF.OPCODE_TEXT,
+        )
+
+        mocked_send.assert_called_once()
+
+        args, kwargs = mocked_send.call_args
+
+        assert args[0] == "ws://hostname:8000/v1/ws?filter=test_value"
+        assert kwargs["data"] == "test_data"
+        assert kwargs["opcode"] == 1
+
 
 class TestPrepareUrl:
     @pytest.mark.parametrize(
