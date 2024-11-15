@@ -1,5 +1,5 @@
 from contextlib import contextmanager
-from typing import Optional, Tuple, TypeVar
+from typing import Optional, Tuple, TypeVar, Union
 from urllib import parse
 
 import websocket
@@ -44,8 +44,10 @@ class WebSocketClient(base.BaseWebSocketClient[T]):
         url = self._prepare(path, params=params)
         return self._recv(url, opcode=opcode)
 
-    def send(self, path: str, data: Optional[dict] = None, opcode: int = 0) -> None:
-        url = self._prepare(path)
+    def send(
+        self, path: str, data: Union[bytes, str], params: Optional[dict] = None, opcode: int = 0
+    ) -> None:
+        url = self._prepare(path, params=params)
         self._send(url, data=data, opcode=opcode)
 
     # Helpers:
@@ -56,7 +58,7 @@ class WebSocketClient(base.BaseWebSocketClient[T]):
             _check_response_code(response[0], opcode=opcode)
         return response[1]
 
-    def _send(self, url: str, data: Optional[dict] = None, opcode: int = 0) -> None:
+    def _send(self, url: str, data: Union[bytes, str], opcode: int = 0) -> None:
         with self.conn.connect(url):
             self.conn.send(data, opcode=opcode)
 

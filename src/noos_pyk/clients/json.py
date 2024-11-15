@@ -1,12 +1,12 @@
 from http import client as http_client
-from typing import Any, Dict
+from typing import Any
 
 import requests
 
 from . import base, http
 
 
-Json = Dict[str, Any]
+Json = dict[str, Any]
 
 DEFAULT_JSON_CONTENT_TYPE = "application/json"
 

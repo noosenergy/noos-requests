@@ -1,10 +1,10 @@
 import abc
-from typing import Any, Dict, Generic, Optional, TypeVar
+from typing import Any, Generic, Optional, TypeVar, Union
 
 
 T = TypeVar("T")
 
-Header = Dict[str, str]
+Header = dict[str, str]
 
 DEFAULT_TIMEOUT = 10.0
 
@@ -137,7 +137,9 @@ class BaseWebSocketClient(abc.ABC, Generic[T]):
     # Default WebSocket methods:
 
     @abc.abstractmethod
-    def send(self, path: str, data: Optional[dict] = None, opcode: int = 0) -> None:
+    def send(
+        self, path: str, data: Union[bytes, str], params: Optional[dict] = None, opcode: int = 0
+    ) -> None:
         ...
 
     @abc.abstractmethod
