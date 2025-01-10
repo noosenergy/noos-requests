@@ -46,7 +46,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
  - Bump poetry to v1.5.1.
 
-
 ## [0.0.11] - 2024-11-14
 ### Changed
  - Update Websocket send method signature.
+
+## [0.0.12] - 2025-01-05
+### Changed
+ - Upgrade python version to 3.13.1.
