@@ -5,7 +5,7 @@ build-backend = "poetry.masonry.api"
 [tool.poetry]
 # Description
 name = "noos-pyk"
-version = "0.0.11"
+version = "0.0.12"
 description = "A simple, yet useful Python toolkit"
 # Credentials
 license = "MIT"
@@ -22,12 +22,12 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Typing :: Typed",
 ]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
 requests = "*"
 websocket-client = { version = "*", optional = true }
 
@@ -51,7 +51,7 @@ ipython = "*"
 
 [tool.black]
 line-length = 99
-target_version = ['py311']
+target_version = ['py312']
 
 [tool.isort]
 line_length = 99

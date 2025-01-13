@@ -107,8 +107,7 @@ class BaseHTTPClient(abc.ABC, Generic[T]):
         data: Optional[dict] = None,
         form_data: Optional[Any] = None,
         statuses: tuple = (),
-    ) -> T:
-        ...
+    ) -> T: ...
 
 
 class BaseWebSocketClient(abc.ABC, Generic[T]):
@@ -139,9 +138,7 @@ class BaseWebSocketClient(abc.ABC, Generic[T]):
     @abc.abstractmethod
     def send(
         self, path: str, data: Union[bytes, str], params: Optional[dict] = None, opcode: int = 0
-    ) -> None:
-        ...
+    ) -> None: ...
 
     @abc.abstractmethod
-    def receive(self, path: str, params: Optional[dict] = None, opcode: int = 0) -> T:
-        ...
+    def receive(self, path: str, params: Optional[dict] = None, opcode: int = 0) -> T: ...
