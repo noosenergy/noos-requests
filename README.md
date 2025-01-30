@@ -39,11 +39,7 @@ class TerraformClient(json.JSONClient, auth.AuthClient):
 
 ## Development
 
-On Mac OSX, make sure [poetry](https://python-poetry.org/) has been installed and pre-configured,
-
-```sh
-brew install poetry
-```
+Make sure [poetry](https://python-poetry.org/) has been installed and pre-configured,
 
 This project is shipped with a Makefile, which is ready to do basic common tasks.
 
