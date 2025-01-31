@@ -53,3 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.12] - 2025-01-13
 ### Changed
  - Upgrade python version to 3.12.8.
+
+## [0.0.13] - 2025-01-31
+### Changed
+ - Expose type hinting to `mypy` via `py.typed`.
