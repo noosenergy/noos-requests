@@ -1,3 +1,5 @@
+from unittest import mock
+
 import pytest
 import websocket
 
@@ -5,7 +7,7 @@ from noos_pyk.clients import ws
 
 
 @pytest.fixture
-def text_client():
+def text_client() -> type[ws.WebSocketClient]:
     class TextClient(ws.WebSocketClient[str]):
         pass
 
@@ -13,7 +15,7 @@ def text_client():
 
 
 @pytest.fixture
-def mocked_message(mocker, text_client):
+def mocked_message(mocker, text_client) -> mock.Mock:
     return mocker.patch.object(text_client, "_recv")
 
 

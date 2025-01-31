@@ -4,7 +4,7 @@ from noos_pyk.clients import base
 
 
 @pytest.fixture
-def bad_http_client():
+def bad_http_client() -> type[base.BaseHTTPClient]:
     class BadHTTPClient(base.BaseHTTPClient[str]):
         pass
 
@@ -12,7 +12,7 @@ def bad_http_client():
 
 
 @pytest.fixture
-def bad_ws_client():
+def bad_ws_client() -> type[base.BaseWebSocketClient]:
     class BadWebSocketClient(base.BaseWebSocketClient[bytes]):
         pass
 

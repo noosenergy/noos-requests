@@ -1,3 +1,5 @@
+from unittest import mock
+
 import pytest
 import requests
 
@@ -5,7 +7,7 @@ from noos_pyk.clients import auth, json
 
 
 @pytest.fixture
-def auth_class():
+def auth_class() -> type[auth.HTTPTokenAuth]:
     class TokenAuth(auth.HTTPTokenAuth):
         default_header = "Test-Header"
         default_value = "testKey"
@@ -14,7 +16,7 @@ def auth_class():
 
 
 @pytest.fixture
-def auth_client(auth_class):
+def auth_client(auth_class) -> type[auth.AuthClient]:
     class AuthClient(json.JSONClient, auth.AuthClient):
         default_auth_class = auth_class
 
@@ -22,7 +24,7 @@ def auth_client(auth_class):
 
 
 @pytest.fixture
-def mocked_request(mocker, auth_client):
+def mocked_request(mocker, auth_client) -> mock.Mock:
     mocker.patch.object(auth_client, "_check")
     mocker.patch.object(auth_client, "_deserialize")
     return mocker.patch.object(requests.Session, "send")

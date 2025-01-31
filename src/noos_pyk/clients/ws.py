@@ -1,5 +1,6 @@
+from collections.abc import Generator
 from contextlib import contextmanager
-from typing import Optional, Tuple, TypeVar, Union
+from typing import TypeVar
 from urllib import parse
 
 import websocket
@@ -18,7 +19,7 @@ class WebSocketError(base.ClientError):
 
 class WebSocketContext(websocket.WebSocket):
     @contextmanager
-    def connect(self, url, **options):
+    def connect(self, url: str, **options) -> Generator[None, None, None]:
         """Start web-socket connection to URL."""
         super().connect(url, **options)
         yield
@@ -28,7 +29,7 @@ class WebSocketContext(websocket.WebSocket):
 class WebSocketClient(base.BaseWebSocketClient[T]):
     """Base class for short-lived web-socket clients."""
 
-    _conn: Optional[WebSocketContext] = None
+    _conn: WebSocketContext | None = None
 
     @property
     def conn(self) -> WebSocketContext:
@@ -40,12 +41,12 @@ class WebSocketClient(base.BaseWebSocketClient[T]):
 
     # Short-lived client implementation:
 
-    def receive(self, path: str, params: Optional[dict] = None, opcode: int = 0) -> T:
+    def receive(self, path: str, params: dict | None = None, opcode: int = 0) -> T:
         url = self._prepare(path, params=params)
         return self._recv(url, opcode=opcode)
 
     def send(
-        self, path: str, data: Union[bytes, str], params: Optional[dict] = None, opcode: int = 0
+        self, path: str, data: bytes | str, params: dict | None = None, opcode: int = 0
     ) -> None:
         url = self._prepare(path, params=params)
         self._send(url, data=data, opcode=opcode)
@@ -54,22 +55,22 @@ class WebSocketClient(base.BaseWebSocketClient[T]):
 
     def _recv(self, url: str, opcode: int = 0) -> T:
         with self.conn.connect(url):
-            response: Tuple[int, T] = self.conn.recv_data()
+            response: tuple[int, T] = self.conn.recv_data()
             _check_response_code(response[0], opcode=opcode)
         return response[1]
 
-    def _send(self, url: str, data: Union[bytes, str], opcode: int = 0) -> None:
+    def _send(self, url: str, data: bytes | str, opcode: int = 0) -> None:
         with self.conn.connect(url):
             self.conn.send(data, opcode=opcode)
 
-    def _prepare(self, path: str, params: Optional[dict] = None) -> str:
+    def _prepare(self, path: str, params: dict | None = None) -> str:
         return _prepare_url(self._url, path, params)
 
 
 # Helpers:
 
 
-def _prepare_url(base_url: str, path: str, params: Optional[dict]) -> str:
+def _prepare_url(base_url: str, path: str, params: dict | None) -> str:
     url = parse.urljoin(base_url, path)
     parsed_url = parse.urlparse(url)
     return parse.ParseResult(
