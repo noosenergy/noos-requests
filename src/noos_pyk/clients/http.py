@@ -1,5 +1,5 @@
 import abc
-from typing import Any, Optional, TypeVar
+from typing import Any, TypeVar
 from urllib import parse
 
 import requests
@@ -20,8 +20,8 @@ class HTTPError(base.ClientError):
 class HTTPClient(base.BaseHTTPClient[T]):
     """Base class for blocking HTTP clients."""
 
-    _auth: Optional[auth.AuthBase] = None
-    _conn: Optional[requests.Session] = None
+    _auth: auth.AuthBase | None = None
+    _conn: requests.Session | None = None
 
     @property
     def conn(self) -> requests.Session:
@@ -37,9 +37,9 @@ class HTTPClient(base.BaseHTTPClient[T]):
         self,
         method: str,
         path: str,
-        params: Optional[dict] = None,
-        data: Optional[dict] = None,
-        form_data: Optional[Any] = None,
+        params: dict | None = None,
+        data: dict | None = None,
+        form_data: Any | None = None,
         statuses: tuple = (),
     ) -> T:
         url = parse.urljoin(self._url, path)
@@ -54,9 +54,9 @@ class HTTPClient(base.BaseHTTPClient[T]):
         self,
         method: str,
         url: str,
-        params: Optional[dict] = None,
-        data: Optional[dict] = None,
-        form_data: Optional[Any] = None,
+        params: dict | None = None,
+        data: dict | None = None,
+        form_data: Any | None = None,
     ) -> requests.Response:
         """Fetch request response."""
         return self.conn.request(

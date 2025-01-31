@@ -1,5 +1,5 @@
 import abc
-from typing import Any, Generic, Optional, TypeVar, Union
+from typing import Any, TypeVar
 
 
 T = TypeVar("T")
@@ -15,7 +15,7 @@ class ClientError(Exception):
     pass
 
 
-class BaseHTTPClient(abc.ABC, Generic[T]):
+class BaseHTTPClient[T](abc.ABC):
     """Interface class for HTTP clients."""
 
     _url: str
@@ -33,9 +33,9 @@ class BaseHTTPClient(abc.ABC, Generic[T]):
 
     def __init__(
         self,
-        base_url: Optional[str] = None,
-        default_timeout: Optional[float] = None,
-        default_headers: Optional[Header] = None,
+        base_url: str | None = None,
+        default_timeout: float | None = None,
+        default_headers: Header | None = None,
     ) -> None:
         self._url = base_url or self.default_base_url
         self._timeout = default_timeout or self.default_timeout
@@ -43,18 +43,18 @@ class BaseHTTPClient(abc.ABC, Generic[T]):
 
     # Default HTTP methods:
 
-    def get(self, path: str, params: Optional[dict] = None, statuses: tuple = ()) -> T:
+    def get(self, path: str, params: dict | None = None, statuses: tuple = ()) -> T:
         return self._request(method="GET", path=path, params=params, statuses=statuses)
 
-    def delete(self, path: str, params: Optional[dict] = None, statuses: tuple = ()) -> T:
+    def delete(self, path: str, params: dict | None = None, statuses: tuple = ()) -> T:
         return self._request(method="DELETE", path=path, params=params, statuses=statuses)
 
     def post(
         self,
         path: str,
-        params: Optional[dict] = None,
-        data: Optional[dict] = None,
-        form_data: Optional[Any] = None,
+        params: dict | None = None,
+        data: dict | None = None,
+        form_data: Any | None = None,
         statuses: tuple = (),
     ) -> T:
         return self._request(
@@ -69,8 +69,8 @@ class BaseHTTPClient(abc.ABC, Generic[T]):
     def put(
         self,
         path: str,
-        data: Optional[dict] = None,
-        form_data: Optional[Any] = None,
+        data: dict | None = None,
+        form_data: Any | None = None,
         statuses: tuple = (),
     ) -> T:
         return self._request(
@@ -84,8 +84,8 @@ class BaseHTTPClient(abc.ABC, Generic[T]):
     def patch(
         self,
         path: str,
-        data: Optional[dict] = None,
-        form_data: Optional[Any] = None,
+        data: dict | None = None,
+        form_data: Any | None = None,
         statuses: tuple = (),
     ) -> T:
         return self._request(
@@ -103,14 +103,14 @@ class BaseHTTPClient(abc.ABC, Generic[T]):
         self,
         method: str,
         path: str,
-        params: Optional[dict] = None,
-        data: Optional[dict] = None,
-        form_data: Optional[Any] = None,
+        params: dict | None = None,
+        data: dict | None = None,
+        form_data: Any | None = None,
         statuses: tuple = (),
     ) -> T: ...
 
 
-class BaseWebSocketClient(abc.ABC, Generic[T]):
+class BaseWebSocketClient[T](abc.ABC):
     """Interface class for web-socket clients."""
 
     _url: str
@@ -125,9 +125,9 @@ class BaseWebSocketClient(abc.ABC, Generic[T]):
 
     def __init__(
         self,
-        base_url: Optional[str] = None,
-        default_headers: Optional[Header] = None,
-        default_timeout: Optional[float] = None,
+        base_url: str | None = None,
+        default_headers: Header | None = None,
+        default_timeout: float | None = None,
     ) -> None:
         self._url = base_url or self.default_base_url
         self._timeout = default_timeout or self.default_timeout
@@ -137,8 +137,8 @@ class BaseWebSocketClient(abc.ABC, Generic[T]):
 
     @abc.abstractmethod
     def send(
-        self, path: str, data: Union[bytes, str], params: Optional[dict] = None, opcode: int = 0
+        self, path: str, data: bytes | str, params: dict | None = None, opcode: int = 0
     ) -> None: ...
 
     @abc.abstractmethod
-    def receive(self, path: str, params: Optional[dict] = None, opcode: int = 0) -> T: ...
+    def receive(self, path: str, params: dict | None = None, opcode: int = 0) -> T: ...

@@ -1,4 +1,5 @@
 import random
+from unittest import mock
 
 import pytest
 import requests
@@ -7,7 +8,7 @@ from noos_pyk.clients import http
 
 
 @pytest.fixture
-def bad_client():
+def bad_client() -> type[http.HTTPClient]:
     class BadClient(http.HTTPClient[str]):
         pass
 
@@ -15,7 +16,7 @@ def bad_client():
 
 
 @pytest.fixture
-def text_client():
+def text_client() -> type[http.HTTPClient]:
     class TextClient(http.HTTPClient[str]):
         def _deserialize(self, response: requests.Response) -> str:
             return response.text
@@ -24,14 +25,14 @@ def text_client():
 
 
 @pytest.fixture
-def mocked_request(mocker, text_client):
+def mocked_request(mocker, text_client) -> mock.Mock:
     mocker.patch.object(text_client, "_check")
     mocker.patch.object(text_client, "_deserialize")
     return mocker.patch.object(text_client, "_send")
 
 
 @pytest.fixture
-def error_status_code():
+def error_status_code() -> int:
     return random.randrange(400, 600)
 
 
