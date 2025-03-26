@@ -57,3 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.13] - 2025-01-31
 ### Changed
  - Expose type hinting to `mypy` via `py.typed`.
+
+## [0.0.14] - 2025-03-26
+### Added
+ - Define a recursive type describing a deserialized JSON Python object.
