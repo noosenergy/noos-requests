@@ -5,7 +5,7 @@ build-backend = "poetry.masonry.api"
 [tool.poetry]
 # Description
 name = "noos-pyk"
-version = "0.0.13"
+version = "0.0.14"
 description = "A simple, yet useful Python toolkit"
 # Credentials
 license = "MIT"
@@ -86,11 +86,11 @@ max-complexity = 10
 install_types = true
 non_interactive = true
 incremental = true
-warn_unused_configs = false
+warn_unused_configs = true
 warn_unused_ignores = true
 check_untyped_defs = true
 warn_redundant_casts = true
-ignore_missing_imports = true
+disable_error_code = "import-untyped"
 
 [tool.pytest.ini_options]
 python_files = "test_*.py"

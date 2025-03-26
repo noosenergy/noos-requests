@@ -1,12 +1,12 @@
 from http import client as http_client
-from typing import Any
 
 import requests
 
 from . import base, http
 
 
-Json = dict[str, Any]
+type Json = dict[str, Json] | list[Json] | None | int | bool |str | float | bool
+
 
 DEFAULT_JSON_CONTENT_TYPE = "application/json"
 
