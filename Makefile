@@ -15,7 +15,8 @@ help:  ## Display this auto-generated help message
 .PHONY: update clean format
 
 update:  ## Lock and install build dependencies
-	uv sync --dev --upgrade
+	uv lock --upgrade
+	uv sync --all-extras
 
 clean:  ## Clean project from temp files / dirs
 	rm -rf build dist
@@ -30,7 +31,7 @@ format:  ## Run auto-formatting linters
 .PHONY: install lint test package release
 
 install:  ## Install build dependencies from lock file
-	uv sync --dev
+	uv sync --all-extras
 
 lint:  ## Run python linters
 	uv run ruff check src
