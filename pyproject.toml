@@ -1,6 +1,6 @@
 [project]
 name = "noos-pyk"
-version = "0.0.14"
+version = "0.1.0"
 description = "A simple, yet useful Python toolkit"
 # Credentials
 authors = [{ name = "Noos Energy", email = "contact@noos.energy" }]
