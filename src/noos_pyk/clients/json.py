@@ -5,7 +5,7 @@ import requests
 from . import base, http
 
 
-type Json = dict[str, Json] | list[Json] | None | int | bool |str | float | bool
+type Json = dict[str, Json] | list[Json] | None | int | bool | str | float | bool
 
 
 DEFAULT_JSON_CONTENT_TYPE = "application/json"

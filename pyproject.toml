@@ -1,22 +1,12 @@
-[build-system]
-requires = ["poetry>=1.0.0"]
-build-backend = "poetry.masonry.api"
-
-[tool.poetry]
-# Description
+[project]
 name = "noos-pyk"
-version = "0.0.14"
+version = "0.1.0"
 description = "A simple, yet useful Python toolkit"
 # Credentials
-license = "MIT"
-authors = ["Noos Energy <contact@noos.energy>"]
-homepage = "https://github.com/noosenergy/noos-python-kit"
-# Package data
+authors = [{ name = "Noos Energy", email = "contact@noos.energy" }]
+requires-python = ">=3.12.0, <3.13"
 readme = "README.md"
-packages = [
-    { include = "noos_pyk", from = "src" },
-]
-# Distribution
+license = "MIT"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
@@ -25,25 +15,27 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Typing :: Typed",
 ]
+dependencies = ["requests"]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-requests = "*"
-websocket-client = { version = "*", optional = true }
+[project.urls]
+Homepage = "https://github.com/noosenergy/noos-requests"
 
-[tool.poetry.extras]
+[project.optional-dependencies]
 websocket = ["websocket-client"]
 
-[tool.poetry.dev-dependencies]
-# Linter
-ruff = "*"
-mypy = "*"
-# Testing
-pytest = "*"
-pytest-mock = "*"
-# Debugging
-ipdb = "*"
-ipython = "*"
+[build-system]
+requires = ["uv_build>=0.9.5,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "ruff",
+    "mypy",
+    "pytest",
+    "pytest-mock",
+    "ipdb",
+    "ipython",
+]
 
 [tool.ruff]
 line-length = 99

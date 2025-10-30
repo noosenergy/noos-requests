@@ -39,7 +39,12 @@ class TerraformClient(json.JSONClient, auth.AuthClient):
 
 ## Development
 
-Make sure [poetry](https://python-poetry.org/) has been installed and pre-configured,
+Make sure [uv](https://docs.astral.sh/uv/) has been installed and pre-configured,
+then run the following command to install the project dependencies:
+
+```shell
+~$ uv sync --dev
+```
 
 This project is shipped with a Makefile, which is ready to do basic common tasks.
 
