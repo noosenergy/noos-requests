@@ -1,8 +1,8 @@
 import random
 from unittest import mock
 
+import niquests as requests
 import pytest
-import requests
 
 from noos_pyk.clients import http
 
@@ -19,7 +19,7 @@ def bad_client() -> type[http.HTTPClient]:
 def text_client() -> type[http.HTTPClient]:
     class TextClient(http.HTTPClient[str]):
         def _deserialize(self, response: requests.Response) -> str:
-            return response.text
+            return response.text or ""
 
     return TextClient
 

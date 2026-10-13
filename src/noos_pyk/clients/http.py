@@ -1,9 +1,10 @@
 import abc
-from typing import Any, TypeVar
+from collections.abc import Mapping
+from typing import Any, TypeVar, cast
 from urllib import parse
 
-import requests
-from requests import auth
+import niquests as requests
+from niquests import auth
 
 from . import base
 
@@ -28,7 +29,8 @@ class HTTPClient(base.BaseHTTPClient[T]):
         """HTTP client connection object."""
         if self._conn is None:
             self._conn = requests.Session()
-            self._conn.headers.update(self._headers)
+            # Niquests types header keys as str | bytes. Our headers are str-only.
+            self._conn.headers.update(cast(Mapping[str | bytes, str | bytes], self._headers))
         return self._conn
 
     # Blocking client implementation:

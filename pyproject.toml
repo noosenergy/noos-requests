@@ -15,7 +15,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Typing :: Typed",
 ]
-dependencies = ["requests"]
+dependencies = ["niquests"]
 
 [project.urls]
 Homepage = "https://github.com/noosenergy/noos-requests"

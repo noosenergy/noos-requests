@@ -1,6 +1,7 @@
-from typing import Protocol, Type
+from collections.abc import MutableMapping
+from typing import Protocol, Type, cast
 
-from requests import PreparedRequest, auth
+from niquests import PreparedRequest, auth
 
 
 DEFAULT_TOKEN_HEADER = "X-TokenAuth"
@@ -20,7 +21,9 @@ class HTTPTokenAuth(auth.AuthBase):
         self._value = value or self.default_value
 
     def __call__(self, request: PreparedRequest) -> PreparedRequest:
-        request.headers[self._header] = f"{self._value} {self._token}"
+        # Niquests types headers as optional and byte-capable. They are present here.
+        headers = cast(MutableMapping[str, str], request.headers)
+        headers[self._header] = f"{self._value} {self._token}"
         return request
 
 

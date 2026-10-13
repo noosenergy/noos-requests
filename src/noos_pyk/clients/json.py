@@ -1,6 +1,6 @@
 from http import client as http_client
 
-import requests
+import niquests as requests
 
 from . import base, http
 
