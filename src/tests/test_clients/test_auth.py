@@ -1,7 +1,7 @@
 from unittest import mock
 
+import niquests as requests
 import pytest
-import requests
 
 from noos_pyk.clients import auth, json
 

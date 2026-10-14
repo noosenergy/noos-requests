@@ -2,8 +2,8 @@ import abc
 from typing import Any, TypeVar
 from urllib import parse
 
-import requests
-from requests import auth
+import niquests as requests
+from niquests import auth
 
 from . import base
 
@@ -28,6 +28,7 @@ class HTTPClient(base.BaseHTTPClient[T]):
         """HTTP client connection object."""
         if self._conn is None:
             self._conn = requests.Session()
+            # Niquests types header keys as str | bytes. Our headers are str-only.
             self._conn.headers.update(self._headers)
         return self._conn
 

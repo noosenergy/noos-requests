@@ -1,11 +1,10 @@
 import abc
-from typing import Any, TypeVar
+from typing import Any, MutableMapping, TypeVar
 
 
 T = TypeVar("T")
 
-Header = dict[str, str]
-
+Header = MutableMapping[str | bytes, str | bytes]
 DEFAULT_TIMEOUT = 10.0
 
 
