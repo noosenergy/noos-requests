@@ -76,3 +76,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Add a `JsonObject` alias for object-shaped JSON values.
 ### Changed
  - Drop the duplicate `bool` from the `Json` union.
+
+## [0.3.0] - 2026-11-18
+### Added
+ - Add `noos_pyk.clients.tls.load_pkcs12_cert` to turn a PKCS#12 bundle into a `niquests` client certificate.
+ - Add the `pkcs12` extra, bringing in `cryptography`.
